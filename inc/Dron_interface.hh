@@ -1,0 +1,9 @@
+#ifndef SYMULACJADRONA_DRON_INTERFACE_HH
+#define SYMULACJADRONA_DRON_INTERFACE_HH
+
+
+class DronInterface{
+
+};
+
+#endif
