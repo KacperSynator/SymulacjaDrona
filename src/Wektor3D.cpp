@@ -15,3 +15,14 @@ Wektor3D & Wektor3D::operator=(Wektor3D W)
 }
 
 
+std::vector<drawNS::Point3D> Pwek2Ppoint(const std::vector<Wektor3D> &P)
+{
+    std::vector<drawNS::Point3D> tmp;
+    for(int i=0;i<P.size();i++)
+    {
+        tmp.emplace_back(0,0,0);
+        tmp[i] = P[i].Wektor2Point();
+    }
+
+    return tmp;
+}

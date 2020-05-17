@@ -31,7 +31,7 @@ protected:
 public:
     enum MetodaWyznacznik{Laplace, Gauss};
 
-    MacierzKw()
+   MacierzKw()
     {
         for (int i = 0; i < ROZMIAR; ++i)
             for (int j = 0; j < ROZMIAR; ++j)
@@ -65,7 +65,7 @@ public:
         return WP;
     }
 
-    MacierzKw<TYP,ROZMIAR>  operator * (const MacierzKw<TYP,ROZMIAR>  & W) const
+    MacierzKw<TYP,ROZMIAR>  operator * ( MacierzKw<TYP,ROZMIAR>  & W) const
     {
         MacierzKw<TYP,ROZMIAR> MKP;
         for(int i=0;i<ROZMIAR;i++)

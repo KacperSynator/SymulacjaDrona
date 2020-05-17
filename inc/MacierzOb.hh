@@ -16,7 +16,7 @@ protected:
     /*!
      * kat w radianach
      */
-    double kat;
+    double kat{};
 public:
     /*!
      * \brief enum z osiami obrotu
@@ -28,14 +28,21 @@ public:
      */
     MacierzOb();
 
-
     /*!
      * \brief Konstruktor
-     * tworzy okreslona wedlug rotacji macierz obrotu
+     * macierz obrotu zostaje skopiowana z szablonowej macierz 3x3
+     * \param M - macierz 3x3
+     */
+
+
+    MacierzOb(MacierzKw<double,3>  M) ;
+    /*!
+     * \brief Konstruktor
+     * tworzy okreslona wedlug osi rotacji macierz obrotu
      * \param os - os obrotu (enum)
      * \param li - kat w stopniach
      */
-     MacierzOb(OsObrotu os,const double & li);
+     MacierzOb(OsObrotu os,double  li);
 
      /*!\brief Ustawia kat macierzy obrotu
       * \param l - kat w stopniach
@@ -53,6 +60,9 @@ public:
      * \return true/false
      */
     bool CzyPoprawna() const ;
+
+
+
 };
 
 

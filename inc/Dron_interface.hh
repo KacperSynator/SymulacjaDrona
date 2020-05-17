@@ -3,7 +3,11 @@
 
 
 class DronInterface{
-
+public:
+    virtual void AnimujRuch(const Wektor3D & Kier,const double & odleglosc) =0;
+    virtual void AnimujObrot(const enum MacierzOb::OsObrotu os, double kat) =0;
+    virtual void RuchZeWzoszeniem(const Wektor3D & Kier ,const double & h,const double & odleglosc)=0;
+    virtual void InicjalizujDrona ()=0;
 };
 
 #endif

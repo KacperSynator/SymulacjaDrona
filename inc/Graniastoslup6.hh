@@ -1,18 +1,17 @@
-#ifndef SYMULACJADRONA_PROSTOPADLOSCIAN_HH
-#define SYMULACJADRONA_PROSTOPADLOSCIAN_HH
+#ifndef SYMULACJADRONA_GRANIASTOSLUP6_HH
+#define SYMULACJADRONA_GRANIASTOSLUP6_HH
 
 #include "Bryla.hh"
 
-class Prostopadloscian : public Bryla {
+class Graniastoslup6 : public Bryla {
 protected:
     std::vector<Wektor3D> Pod1;
     std::vector<Wektor3D> Pod2;
 public:
     void Set_Pod1(const std::vector<Wektor3D> & vekP) {Pod1=vekP;}
     void Set_Pod2(const std::vector<Wektor3D> & vekP) {Pod2=vekP;}
-    void Inicjalizuj() ;
-    bool Rysuj() ;
-
+    void Inicjalizuj();
+    bool Rysuj();
 };
 
 

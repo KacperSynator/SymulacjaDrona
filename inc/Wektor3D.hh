@@ -16,5 +16,6 @@ public:
     Point3D Wektor2Point() const;
 
 };
+std::vector<drawNS::Point3D> Pwek2Ppoint(const std::vector<Wektor3D> &P);
 
 #endif

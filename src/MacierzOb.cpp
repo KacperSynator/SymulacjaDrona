@@ -3,14 +3,11 @@
 
 bool MacierzOb::CzyPoprawna() const
 {
-    MacierzOb MP=*this;
-    if(abs(MP.Wyznacznik(Gauss)-1)<EPSILON)
-        return true;
-    else
-        return false;
+    MacierzOb MP=(*this);
+    return abs(MP.Wyznacznik(Gauss) - 1) < EPSILON;
 }
 
-MacierzOb::MacierzOb(MacierzOb::OsObrotu os ,const double & li)
+MacierzOb::MacierzOb(MacierzOb::OsObrotu os ,double  li)
 {
     kat=li*PI/180;
     switch (os)
@@ -49,5 +46,18 @@ MacierzOb::MacierzOb()
                 tabM[i][j]=0;
 
 }
+
+MacierzOb::MacierzOb(MacierzKw<double, 3>  M)
+{
+    MacierzOb tmp;
+    for(int i=0;i<3;i++)
+        tmp[i]=M[i];
+    //if(tmp.CzyPoprawna())
+        (*this)=tmp;
+  //  else
+     //   std::cerr<<"To nie jest macierz obrotu\n";
+}
+
+
 
 

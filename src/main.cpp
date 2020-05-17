@@ -2,6 +2,7 @@
 #include "../inc/Dr3D_gnuplot_api.hh"
 
 #include "../inc/Dron.hh"
+#include "../inc/Scena.hh"
 
 using std::vector;
 using drawNS::Point3D;
@@ -10,7 +11,6 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-#define KONIEC 1
 
 /*void wait4key() {
     do {
@@ -19,106 +19,17 @@ using std::endl;
 }*/
 
 
-int main() {
+int main()
+{
     //std::shared_ptr<drawNS::Draw3DAPI> api(new APIGnuPlot3D(-5,5,-5,5,-5,5,1000)); //włacza gnuplota, pojawia się scena [-5,5] x [-5,5] x [-5,5] odświeżana co 1000 ms
-    drawNS::Draw3DAPI * api = new APIGnuPlot3D(-10,10,-10,10,-10,10,1000); //alternatywnie zwykły wskaźnik
-    api->change_ref_time_ms(0); //odświeżanie sceny zmienione na opcję "z każdym pojawieniem się lub zniknięciem kształtu"
+   // drawNS::Draw3DAPI *api = new APIGnuPlot3D(-10, 10, -10, 10, -10, 10, 1000); //alternatywnie zwykły wskaźnik
+   // api->change_ref_time_ms(0); //odświeżanie sceny zmienione na opcję "z każdym pojawieniem się lub zniknięciem kształtu"
 
 
-
-        Dron D;
-        D.Inicjalizuj();
-
-        int n=0,m,wybor, odleglosc,kat;
-        char wej;
-        while (n!=KONIEC)
-        {
-            cout<< "MENU\n 1 - Ruch\n 2 - Obrot\n 0 - kociec\n Twoj wybor: ";
-            cin>> wybor;
-            cout<<"\n";
-            switch (wybor)
-            {
-                case 1:
-                    {
-                    cout << "Wyznacz odleglosc ruchu \n";
-                    cin >> odleglosc;
-                    cout << "Wybierz kierunek (awsd)\n";
-                    cin >> wej;
-                    m=0;
-                    while (m != KONIEC)
-                        switch (wej)
-                        {
-                            case 'a':
-                                D.AnimujRuch(Bryla::Tyl,odleglosc,api);
-                                m = KONIEC;
-                                break;
-
-                            case 'd':
-                                D.AnimujRuch(Bryla::Przod,odleglosc,api);
-                                m = KONIEC;
-                                break;
-
-                            case 's':
-                                D.AnimujRuch(Bryla::Dol,odleglosc,api);
-                                m = KONIEC;
-                                break;
-
-                            case 'w':
-                                D.AnimujRuch(Bryla::Gora,odleglosc,api);
-                                m = KONIEC;
-                                break;
-
-                            default:
-                                cout << "Bledny kierunek (awsd), sprobuj ponownie\n";
-                                break;
-                        }
-
-                    break;
-                }
-
-                case 2:
-                    {
-                    cout << "Wyznacz kat obrotu w stopniach\n";
-                    cin >> kat;
-                    cout << "Wybierz os obortu (xyz) x - przod; y - prawo; z - pion;\n";
-                    cin >> wej;
-                    m = 0;
-                    while (m != KONIEC)
-                        switch (wej)
-                        {
-                            case 'x':
-                                m = KONIEC;
-                                D.AnimujObrot(MacierzOb::OX, kat, api);
-                                break;
-
-                            case 'y':
-                                m = KONIEC;
-                                D.AnimujObrot(MacierzOb::OY, kat, api);
-                                break;
-
-                            case 'z':
-                                m = KONIEC;
-                                D.AnimujObrot(MacierzOb::OZ, kat, api);
-                                break;
-
-                            default:
-                                cout << "Bledny wybor, sprobuj ponownie\n";
-                                break;
-                        }
-                    break;
-                }
-
-                case 0:
-                    cout<<"Koniec dzialania programu\n";
-                    n=KONIEC;
-                    break;
-
-                default:
-                    cout<<"Bledny wybor, sprobuj ponownie\n";
-
-
-            }
-        }
+    Scena S;
+    S.Inicjalizuj();
+    S.WlaczMenuDrona();
+}
 
 
 
@@ -185,7 +96,7 @@ int main() {
 
 
     wait4key();
-
+}
 */
     //delete api;//dla zwykłych wskaźników musimy posprzątać
-}
+
