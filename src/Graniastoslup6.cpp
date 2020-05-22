@@ -15,11 +15,11 @@ bool Graniastoslup6::Rysuj()
     std::vector<Wektor3D> Pod11=std::vector<Wektor3D>(6) ;
     std::vector<Wektor3D> Pod22=std::vector<Wektor3D>(6) ;
 
-    for(int i=0;i<Pod1.size();i++)
+    for(long unsigned int i=0;i<Pod1.size();i++)
         Pod11[i] = srodek + (orientacja * Pod1[i]);
 
 
-    for(int i=0;i<Pod2.size();i++)
+    for(long unsigned int i=0;i<Pod2.size();i++)
         Pod22[i] = srodek + (orientacja * Pod2[i]);
 
     if(Pod1.size() !=6 || Pod2.size() !=6 || apiSceny== nullptr )
