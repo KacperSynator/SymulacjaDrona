@@ -1,7 +1,8 @@
 #include "../inc/PoziomMorza.hh"
 
-void PoziomMorza::Inicjalizuj()
+void PoziomMorza::Inicjalizuj(std::shared_ptr<drawNS::Draw3DAPI> api)
 {
+    apiSceny=api;
     for (int i = -10; i <= 10; i+=2)
     {
         std::vector<drawNS::Point3D> VP;

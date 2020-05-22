@@ -2,7 +2,8 @@
 #include "../inc/Dr3D_gnuplot_api.hh"
 
 #include "../inc/Dron.hh"
-#include "../inc/Scena.hh"
+#include "../inc/Dno.hh"
+#include "../inc/PoziomMorza.hh"
 
 using std::vector;
 using drawNS::Point3D;
@@ -25,10 +26,14 @@ int main()
    // drawNS::Draw3DAPI *api = new APIGnuPlot3D(-10, 10, -10, 10, -10, 10, 1000); //alternatywnie zwykły wskaźnik
    // api->change_ref_time_ms(0); //odświeżanie sceny zmienione na opcję "z każdym pojawieniem się lub zniknięciem kształtu"
 
-
-    Scena S;
-    S.Inicjalizuj();
-    S.WlaczMenuDrona();
+    std::shared_ptr<drawNS::Draw3DAPI> api(new drawNS::APIGnuPlot3D(-10,10,-10,10,-10,10,-1));
+    Dron D;
+    Dno P1;
+    PoziomMorza P2;
+    P1.Inicjalizuj(api);
+    P2.Inicjalizuj(api);
+    D.InicjalizujDrona(api);
+    D.Menu();
 }
 
 

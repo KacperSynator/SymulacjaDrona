@@ -12,7 +12,6 @@ public:
     Dron dron;
     Dno dno;
     PoziomMorza poziomMorza;
-
 public:
 
     void Inicjalizuj();

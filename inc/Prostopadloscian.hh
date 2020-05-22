@@ -10,7 +10,7 @@ protected:
 public:
     void Set_Pod1(const std::vector<Wektor3D> & vekP) {Pod1=vekP;}
     void Set_Pod2(const std::vector<Wektor3D> & vekP) {Pod2=vekP;}
-    void Inicjalizuj() ;
+    void Inicjalizuj(std::shared_ptr<drawNS::Draw3DAPI> api) ;
     bool Rysuj() ;
 
 };

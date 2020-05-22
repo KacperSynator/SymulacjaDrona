@@ -5,7 +5,7 @@
 
 class Dno : public Plaszczyzna  {
 public:
-void Inicjalizuj() ;
+void Inicjalizuj(std::shared_ptr<drawNS::Draw3DAPI> api) ;
 
 };
 

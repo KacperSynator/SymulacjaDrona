@@ -2,13 +2,13 @@
 
 
 
-void Wirnik::InicjalizujWirnik(const Wektor3D &sr)
+void Wirnik::InicjalizujWirnik(const Wektor3D &sr, std::shared_ptr<drawNS::Draw3DAPI> api)
 {
     srodek=sr;
-    Inicjalizuj();
+    Inicjalizuj(api);
 }
 
-void Wirnik::RuchDrona(const Wektor3D &sr, MacierzOb &ob,int kat)
+void Wirnik::RuchDrona(const Wektor3D &sr, MacierzOb &ob,const double & kat)
 {
     srodek=sr;
     orientacja=ob;

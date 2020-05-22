@@ -17,12 +17,12 @@ protected:
     Wirnik wirnikL;
     Wektor3D pozWL;
 public:
-Dron() {};
+    Dron() {};
 
     void AnimujRuch(const Wektor3D & kierunek,const double & odleglosc);
     void AnimujObrot(const enum MacierzOb::OsObrotu os, double kat);
-    void RuchZeWzoszeniem(const Wektor3D & Kier ,const double & h,const double & odleglosc);
-    void InicjalizujDrona ();
+    void RuchZeWzoszeniem(const Wektor3D & Kier ,const double & kat,const double & odleglosc);
+    void InicjalizujDrona (std::shared_ptr<drawNS::Draw3DAPI> api);
     void Menu();
 };
 

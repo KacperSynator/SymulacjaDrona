@@ -10,7 +10,7 @@ protected:
     int apii;
     std::shared_ptr<drawNS::Draw3DAPI> apiSceny;
 public:
-    virtual void Inicjalizuj() = 0;
+    virtual void Inicjalizuj(std::shared_ptr<drawNS::Draw3DAPI> api) = 0;
     virtual bool Rysuj() = 0;
     void Zmarz() {apiSceny->erase_shape(apii);}
     void Set_apiSceny(std::shared_ptr<drawNS::Draw3DAPI> api) {apiSceny=api;}
