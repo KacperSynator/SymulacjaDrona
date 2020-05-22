@@ -16,7 +16,7 @@ protected:
     /*!
      * kat w radianach
      */
-    double kat{};
+    double kat;
 public:
     /*!
      * \brief enum z osiami obrotu
