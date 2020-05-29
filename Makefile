@@ -7,14 +7,17 @@ __start__: SymulacjaDrona.out
 obj:
 	mkdir obj
 
-SymulacjaDrona.out: obj/Dr3D_gnuplot_api.o obj/main.o obj/Dno.o obj/PoziomMorza.o obj/Dron.o obj/Bryla.o obj/MacierzOb.o obj/Prostopadloscian.o obj/Wektor3D.o obj/Wirnik.o obj/Graniastoslup6.o obj/Płaszczyzna.o obj/ObiektRysowalny.o
-	g++ -o SymulacjaDrona.out obj/main.o obj/Dr3D_gnuplot_api.o obj/Dno.o obj/PoziomMorza.o obj/Dron.o obj/Bryla.o obj/MacierzOb.o obj/Prostopadloscian.o obj/Wektor3D.o obj/Wirnik.o obj/Graniastoslup6.o obj/Płaszczyzna.o obj/ObiektRysowalny.o -lpthread
+SymulacjaDrona.out: obj/Dr3D_gnuplot_api.o obj/main.o obj/Dno.o obj/PoziomMorza.o obj/Dron.o obj/Bryla.o obj/MacierzOb.o obj/Prostopadloscian.o obj/Wektor3D.o obj/Wirnik.o obj/Graniastoslup6.o obj/Płaszczyzna.o obj/ObiektRysowalny.o obj/PrzeszkodaProst.o
+	g++ -o SymulacjaDrona.out obj/main.o obj/Dr3D_gnuplot_api.o obj/Dno.o obj/PoziomMorza.o obj/Dron.o obj/Bryla.o obj/MacierzOb.o obj/Prostopadloscian.o obj/Wektor3D.o obj/Wirnik.o obj/Graniastoslup6.o obj/Płaszczyzna.o obj/ObiektRysowalny.o obj/PrzeszkodaProst.o -lpthread
 
 obj/main.o: src/main.cpp inc/Dr3D_gnuplot_api.hh inc/Dno.hh inc/PoziomMorza.hh inc/Dron.hh  inc/Wirnik.hh inc/Prostopadloscian.hh inc/Graniastoslup6.hh inc/Bryla.hh inc/ObiektRysowalny.hh inc/MacierzOb.hh inc/Wektor3D.hh inc/MacierzKw.hh inc/Wektor.hh
 	g++ ${CPPFLAGS} -o obj/main.o src/main.cpp
 
-obj/Dron.o: src/Dron.cpp inc/Dron.hh inc/Wirnik.hh inc/Prostopadloscian.hh inc/Graniastoslup6.hh inc/Dron_interface.hh inc/Bryla.hh inc/ObiektRysowalny.hh inc/MacierzOb.hh inc/Wektor3D.hh inc/MacierzKw.hh inc/Wektor.hh
+obj/Dron.o: src/Dron.cpp inc/Dron.hh inc/Wirnik.hh inc/Prostopadloscian.hh inc/Przeszkoda_interface.hh inc/Graniastoslup6.hh inc/Dron_interface.hh inc/Bryla.hh inc/ObiektRysowalny.hh inc/MacierzOb.hh inc/Wektor3D.hh inc/MacierzKw.hh inc/Wektor.hh
 	g++ ${CPPFLAGS} -o obj/Dron.o src/Dron.cpp
+
+obj/PrzeszkodaProst.o: src/PrzeszkodaProst.cpp inc/PrzeszkodaProst.hh inc/Przeszkoda_interface.hh inc/Bryla.hh inc/ObiektRysowalny.hh inc/MacierzOb.hh inc/Wektor3D.hh inc/MacierzKw.hh inc/Wektor.hh inc/Prostopadloscian.hh
+	g++ ${CPPFLAGS} -o obj/PrzeszkodaProst.o src/PrzeszkodaProst.cpp
 
 obj/Wirnik.o: src/Wirnik.cpp inc/Wirnik.hh inc/Graniastoslup6.hh inc/Bryla.hh inc/ObiektRysowalny.hh inc/MacierzOb.hh inc/Wektor3D.hh inc/MacierzKw.hh inc/Wektor.hh
 	g++ ${CPPFLAGS} -o obj/Wirnik.o src/Wirnik.cpp

@@ -1,6 +1,6 @@
 #include "../inc/Graniastoslup6.hh"
 
-void Graniastoslup6::Inicjalizuj(std::shared_ptr<drawNS::Draw3DAPI> api)
+void Graniastoslup6::Inicjalizuj(std::shared_ptr<drawNS::Draw3DAPI> api, const Wektor3D & sr)
 {
     apiSceny=api;
     std::vector<Wektor3D> P1 = {Wektor3D(-0.5,-0.25,0),Wektor3D(-0.25,-0.25,-sqrt(3)*0.25),Wektor3D(0.25,-0.25,-sqrt(3)*0.25),Wektor3D(0.5,-0.25,0),Wektor3D(0.25,-0.25,sqrt(3)*0.25),Wektor3D(-0.25,-0.25,sqrt(3)*0.25)};
@@ -32,6 +32,7 @@ bool Graniastoslup6::Rysuj()
     return true;
 
 }
+
 
 
 

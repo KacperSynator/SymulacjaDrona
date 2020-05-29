@@ -5,7 +5,7 @@
 void Wirnik::InicjalizujWirnik(const Wektor3D &sr, std::shared_ptr<drawNS::Draw3DAPI> api)
 {
     srodek=sr;
-    Inicjalizuj(api);
+    Inicjalizuj(api,sr);
 }
 
 void Wirnik::RuchDrona(const Wektor3D &sr, MacierzOb &ob,const double & kat)

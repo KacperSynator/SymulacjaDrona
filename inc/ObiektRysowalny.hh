@@ -23,7 +23,7 @@ public:
     * \brief Utworzenie i narysowanie obiektu rysowalnego
     * \param api - wskaźnik sceny
     */
-    virtual void Inicjalizuj(std::shared_ptr<drawNS::Draw3DAPI> api) = 0;
+    virtual void Inicjalizuj(std::shared_ptr<drawNS::Draw3DAPI> api,const Wektor3D & sr) = 0;
     /*!
     * \brief   Rysuje obiekt rysowalny
     * \return  czy rysowanie się powiodło

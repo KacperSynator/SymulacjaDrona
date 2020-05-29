@@ -1,11 +1,30 @@
 #ifndef SYMULACJADRONA_DRON_INTERFACE_HH
 #define SYMULACJADRONA_DRON_INTERFACE_HH
 
+#include "Wirnik.hh"
+
 /*!
  * \brief Implementacja abstrakcyjnej klasy DronInterface
  */
 
 class DronInterface{
+protected:
+    /*!
+     * Wirnik prawy drona (\file Wirnik.hh )
+     */
+    Wirnik wirnikP;
+    /*!
+     * Pozycja wirnika prawego wzgledem srodka drona
+     */
+    Wektor3D pozWP;
+    /*!
+     * Wirnik lewy drona (\file Wirnik.hh )
+     */
+    Wirnik wirnikL;
+    /*!
+     * Pozycja wirnika lewego wzgledem srodka drona
+    */
+    Wektor3D pozWL;
 public:
     /*!
      * \brief Animuje ruch drona
@@ -32,7 +51,13 @@ public:
      * \brief Utworzenie i narysowanie drona
      * \param api - wskaźnik sceny
      */
-    virtual void InicjalizujDrona (std::shared_ptr<drawNS::Draw3DAPI> api)=0;
+    virtual void InicjalizujDrona (std::shared_ptr<drawNS::Draw3DAPI> api,const Wektor3D & sr)=0;
+
+    /*!
+     * \brief Zwaraca aktualna pozycje dorna
+     * \return Wektor pozycji
+     */
+    virtual Wektor3D ZwrocPozycje() = 0;
 };
 
 #endif

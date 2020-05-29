@@ -12,7 +12,7 @@ public:
     * \brief Utworzenie i narysowanie plaszczyzny dna
     * \param api - wskaźnik sceny
     */
-    void Inicjalizuj(std::shared_ptr<drawNS::Draw3DAPI> api) ;
+    void Inicjalizuj(std::shared_ptr<drawNS::Draw3DAPI> api,const Wektor3D & sr) ;
 
 };
 

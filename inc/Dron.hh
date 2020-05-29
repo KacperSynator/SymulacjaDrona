@@ -3,41 +3,32 @@
 
 #include "Prostopadloscian.hh"
 #include "Dron_interface.hh"
-#include "Wirnik.hh"
+#include "Przeszkoda_interface.hh"
 
 #define KONIEC 1
 
 using std::cout;
 using std::cin;
-
 /*!
  * \brief Implementacja klasy Dron
- * Dziedziczy po \file Prostopadloscian.hh oraz po \file DronInterface.hh
+ * Dziedziczy po \file Prostopadloscian.hh oraz po \file DronInterface.hh oraz \file Przeszkoda_interface.hh
  */
-class Dron : public Prostopadloscian, public DronInterface {
+class Dron : public Prostopadloscian, public DronInterface, public Przeszkoda_interface  {
 protected:
     /*!
-     * Wirnik prawy drona (\file Wirnik.hh )
+     * wskaznik na interjejs drona
      */
-    Wirnik wirnikP;
+    std::shared_ptr<Dron> D;
     /*!
-     * Pozycja wirnika prawego wzgledem srodka drona
-     */
-    Wektor3D pozWP;
-    /*!
-     * Wirnik lewy drona (\file Wirnik.hh )
-     */
-    Wirnik wirnikL;
-    /*!
-  * Pozycja wirnika lewego wzgledem srodka drona
-  */
-    Wektor3D pozWL;
+    * wskaznik na kolekcje przeszkod
+    */
+    std::shared_ptr<std::vector<std::shared_ptr<Przeszkoda_interface>>> P;
 public:
     /*!
      * \brief konstruktor bezparametryczny
      */
     Dron() {};
-
+    Dron(std::shared_ptr<drawNS::Draw3DAPI> api,const std::vector<std::shared_ptr<Przeszkoda_interface>> &kp,const Wektor3D & sr);
     /*!
     * \brief Animuje ruch drona
     * \param Kier - wektor kierunku (najlepiej jednostkowy)
@@ -63,12 +54,20 @@ public:
      * \brief Utworzenie i narysowanie drona
      * \param api - wskaźnik sceny
      */
-    void InicjalizujDrona (std::shared_ptr<drawNS::Draw3DAPI> api);
+    void InicjalizujDrona (std::shared_ptr<drawNS::Draw3DAPI> api,const Wektor3D & sr) override ;
     /*!
      * \brief Menu sterowania dronem
      * Daję możliwość obrotu drona i ruchu pod zadanym katem
      */
     void Menu();
+    /*!
+    * \brief Sprawdzenie czy doszło do kolizji
+    * \param wskaznik na interfejs drona
+    * \return true jesli kolizja, przeciwnym przypadku false
+    */
+    bool CzyKolizja(std::shared_ptr<DronInterface>);
+
+    Wektor3D ZwrocPozycje() {return srodek;}
 };
 
 

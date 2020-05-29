@@ -18,12 +18,12 @@ public:
     * \brief Utworzenie i narysowanie plaszczyzny
     * \param api - wskaźnik sceny
     */
-    virtual void Inicjalizuj(std::shared_ptr<drawNS::Draw3DAPI> api) =0 ;
+    virtual void Inicjalizuj(std::shared_ptr<drawNS::Draw3DAPI> api,const Wektor3D & sr) override = 0 ;
     /*!
     * \brief   Rysuje plaszczyzne
     * \return  czy rysowanie się powiodło
     */
-    bool Rysuj() ;
+    bool Rysuj() override ;
 
 };
 

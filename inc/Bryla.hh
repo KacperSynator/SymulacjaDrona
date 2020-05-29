@@ -41,7 +41,7 @@ public:
      * \brief Utworzenie i narysowanie bryly
      * \param api - wskaźnik sceny
      */
-    virtual void Inicjalizuj(std::shared_ptr<drawNS::Draw3DAPI> api) override = 0;
+    virtual void Inicjalizuj(std::shared_ptr<drawNS::Draw3DAPI> api, const Wektor3D & sr) override = 0;
     /*!
     * \brief  Rysuje bryle
     * \return czy rysowanie się powiodło

@@ -6,6 +6,7 @@ void Dron::AnimujRuch(const Wektor3D & kierunek,const double & odleglosc)
         Ruch(kierunek, odleglosc/1000);
         wirnikL.RuchDrona(srodek+orientacja*pozWL,orientacja,i);
         wirnikP.RuchDrona(srodek+orientacja*pozWP,orientacja,i);
+        CzyKolizja(D);
         Zmarz();
         Rysuj();
         apiSceny->redraw();
@@ -34,10 +35,11 @@ void Dron::RuchZeWzoszeniem(const Wektor3D &Kier,const double & kat,const double
     AnimujObrot(MacierzOb::OX,-kat);
 }
 
-void Dron::InicjalizujDrona(std::shared_ptr<drawNS::Draw3DAPI> api)
+void Dron::InicjalizujDrona(std::shared_ptr<drawNS::Draw3DAPI> api,const Wektor3D & sr)
 {
+    D = (std::shared_ptr<Dron>)this;
     apiSceny=api;
-    Inicjalizuj(api);
+    Inicjalizuj(api,sr);
     pozWL=Wektor3D(-0.75,-2.125,0);
     wirnikL.InicjalizujWirnik(pozWL,api);
     pozWP=Wektor3D(0.75,-2.125,0);
@@ -108,3 +110,19 @@ void Dron::Menu()
         }
     }
 }
+
+bool Dron::CzyKolizja(std::shared_ptr<DronInterface>)
+{
+    for(auto elem : kolekcja_przeskod)
+        if(elem->CzyKolizja(D))
+            return true;
+
+     return false;
+}
+
+Dron::Dron(std::shared_ptr<drawNS::Draw3DAPI> api,const std::vector<std::shared_ptr<Przeszkoda_interface>> &kp,const Wektor3D & sr)
+{
+    kolekcja_przeskod=kp;
+    InicjalizujDrona(api,sr);
+}
+

@@ -23,8 +23,9 @@ bool Prostopadloscian::Rysuj()
 
 
 }
-void Prostopadloscian:: Inicjalizuj(std::shared_ptr<drawNS::Draw3DAPI> api)
+void Prostopadloscian:: Inicjalizuj(std::shared_ptr<drawNS::Draw3DAPI> api,const Wektor3D & sr)
 {
+    srodek=sr;
     apiSceny=api;
     std::vector<Wektor3D> P1 = {Wektor3D(1.5,2,0.5),Wektor3D(-1.5,2,0.5),Wektor3D(-1.5,-2,0.5),Wektor3D(1.5,-2,0.5)};
     std::vector<Wektor3D> P2 = {Wektor3D(1.5,2,-0.5),Wektor3D(-1.5,2,-0.5),Wektor3D(-1.5,-2,-0.5),Wektor3D(1.5,-2,-0.5)};

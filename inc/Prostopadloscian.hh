@@ -34,14 +34,14 @@ public:
      * \brief Tworzy i rysuje prostopadloscian
      * \param api - wskaznik api sceny
      */
-    void Inicjalizuj(std::shared_ptr<drawNS::Draw3DAPI> api) ;
+    void Inicjalizuj(std::shared_ptr<drawNS::Draw3DAPI> api,const Wektor3D & sr) ;
     /*!
      * \brief  - Rysuje prostopadloscian
      * \return - czy rysowanie się powiodło
      * Metoda wylicza globalne wierzcholki
      * Uwaga: nie dziala jesli nie wywolano wczesniej metody Inicjalizuj
      */
-    bool Rysuj() ;
+    bool Rysuj() override ;
 
 
 };

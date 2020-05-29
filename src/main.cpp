@@ -4,6 +4,7 @@
 #include "../inc/Dron.hh"
 #include "../inc/Dno.hh"
 #include "../inc/PoziomMorza.hh"
+#include "../inc/PrzeszkodaProst.hh"
 
 using std::vector;
 using drawNS::Point3D;
@@ -27,13 +28,18 @@ int main()
    // api->change_ref_time_ms(0); //odświeżanie sceny zmienione na opcję "z każdym pojawieniem się lub zniknięciem kształtu"
 
     std::shared_ptr<drawNS::Draw3DAPI> api(new drawNS::APIGnuPlot3D(-10,10,-10,10,-10,10,-1));
-    Dron D;
-    Dno P1;
-    PoziomMorza P2;
-    P1.Inicjalizuj(api);
-    P2.Inicjalizuj(api);
-    D.InicjalizujDrona(api);
+    std::vector<std::shared_ptr<Przeszkoda_interface>> Kolekcja_Przeskod;
+
+    Dno dno;
+    PoziomMorza pm;
+    PrzeszkodaProst P1(api,Kolekcja_Przeskod,Wektor3D(0,6,0));
+    PrzeszkodaProst P2(api,Kolekcja_Przeskod, Wektor3D(3,6,4));
+    Dron D(api,Kolekcja_Przeskod,Wektor3D(0,0,0));
+
+    dno.Inicjalizuj(api,Wektor3D(0,0,-9));
+    pm.Inicjalizuj(api,Wektor3D(0,0,9));
     D.Menu();
+
 }
 
 
