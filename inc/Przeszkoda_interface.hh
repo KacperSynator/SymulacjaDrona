@@ -10,10 +10,6 @@
  */
 class Przeszkoda_interface {
 protected:
-/*!
- * kontener zawierajacy wszystkie przeszkody
- */
-std::vector<std::shared_ptr<Przeszkoda_interface>> kolekcja_przeskod;
 static uint utworzone;
 static uint istniejace;
 public:
@@ -22,7 +18,7 @@ public:
      * \param wskaznik na interfejs drona
      * \return true jesli kolizja, przeciwnym przypadku false
      */
-    virtual bool CzyKolizja(std::shared_ptr<DronInterface>)=0;
+    virtual bool CzyKolizja(DronInterface*)=0;
 
 };
 

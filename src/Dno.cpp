@@ -21,3 +21,8 @@ void Dno::Inicjalizuj(std::shared_ptr<drawNS::Draw3DAPI> api,const Wektor3D & sr
     apiSceny->change_shape_color(apii,"yellow");
     apiSceny->redraw();
 }
+
+Dno::Dno(std::shared_ptr<drawNS::Draw3DAPI> api, const Wektor3D &sr)
+{
+    Inicjalizuj(api,sr);
+}

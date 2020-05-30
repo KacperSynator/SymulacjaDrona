@@ -22,3 +22,8 @@ void PoziomMorza::Inicjalizuj(std::shared_ptr<drawNS::Draw3DAPI> api,const Wekto
     apiSceny->redraw();
 
 }
+
+PoziomMorza::PoziomMorza(std::shared_ptr<drawNS::Draw3DAPI> api, const Wektor3D &sr)
+{
+    Inicjalizuj(api,sr);
+}

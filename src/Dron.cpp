@@ -1,43 +1,47 @@
 #include "../inc/Dron.hh"
-void Dron::AnimujRuch(const Wektor3D & kierunek,const double & odleglosc)
+bool Dron::AnimujRuch(const Wektor3D & kierunek,const double & odleglosc, std::vector<std::shared_ptr<Przeszkoda_interface>> &kp)
 {
     for (int i = 0; i < 1000; i++)
     {
         Ruch(kierunek, odleglosc/1000);
         wirnikL.RuchDrona(srodek+orientacja*pozWL,orientacja,i);
         wirnikP.RuchDrona(srodek+orientacja*pozWP,orientacja,i);
-        CzyKolizja(D);
+        for(auto elem : kp)
+            if(elem->CzyKolizja(this))
+                return true;
         Zmarz();
         Rysuj();
         apiSceny->redraw();
     }
+    return false;
 }
 
-void Dron::AnimujObrot(const MacierzOb::OsObrotu os, double kat)
+bool Dron::AnimujObrot(const MacierzOb::OsObrotu os, double kat, std::vector<std::shared_ptr<Przeszkoda_interface>> &kp)
 {
     for(int i=0;i<300;i++)
     {
         Obrot(os,kat/300);
         wirnikL.RuchDrona(srodek+orientacja*pozWL,orientacja,i);
         wirnikP.RuchDrona(srodek+orientacja*pozWP,orientacja,i);
+        for(auto elem : kp)
+            if(elem->CzyKolizja(this))
+                return true;
         Zmarz();
         Rysuj();
         apiSceny->redraw();
     }
+    return false;
 }
 
-void Dron::RuchZeWzoszeniem(const Wektor3D &Kier,const double & kat,const double & odleglosc)
+void Dron::RuchZeWzoszeniem(const Wektor3D &Kier,const double & kat,const double & odleglosc, std::vector<std::shared_ptr<Przeszkoda_interface>> &kp)
 {
-    if(kat!=0)
-    AnimujObrot(MacierzOb::OX,kat);
-    AnimujRuch(Kier,odleglosc);
-    if(kat!=0)
-    AnimujObrot(MacierzOb::OX,-kat);
+    if(!AnimujObrot(MacierzOb::OX,kat,kp))
+    if(!AnimujRuch(Kier,odleglosc,kp))
+    AnimujObrot(MacierzOb::OX,-kat, kp);
 }
 
 void Dron::InicjalizujDrona(std::shared_ptr<drawNS::Draw3DAPI> api,const Wektor3D & sr)
 {
-    D = (std::shared_ptr<Dron>)this;
     apiSceny=api;
     Inicjalizuj(api,sr);
     pozWL=Wektor3D(-0.75,-2.125,0);
@@ -47,8 +51,10 @@ void Dron::InicjalizujDrona(std::shared_ptr<drawNS::Draw3DAPI> api,const Wektor3
     apiSceny->redraw();
 }
 
-void Dron::Menu()
+void Dron::Menu(std::vector<std::shared_ptr<Przeszkoda_interface>> &kp)
 {
+    using std::cout;
+    using std::cin;
     int n = 0, m, wybor, odleglosc, kat;
     char wej;
     while (n != KONIEC)
@@ -63,7 +69,7 @@ void Dron::Menu()
                 cin >> kat;
                 cout << "Podaj odległość na jaką ma płynąć dron\n";
                 cin >> odleglosc;
-                RuchZeWzoszeniem(Wektor3D(0, 1, 0), kat, odleglosc);
+                RuchZeWzoszeniem(Wektor3D(0, 1, 0), kat, odleglosc, kp);
                 break;
             }
 
@@ -77,17 +83,17 @@ void Dron::Menu()
                     switch (wej) {
                         case 'x':
                             m = KONIEC;
-                            AnimujObrot(MacierzOb::OX, kat);
+                            AnimujObrot(MacierzOb::OX, kat, kp);
                             break;
 
                         case 'y':
                             m = KONIEC;
-                            AnimujObrot(MacierzOb::OY, kat);
+                            AnimujObrot(MacierzOb::OY, kat, kp);
                             break;
 
                         case 'z':
                             m = KONIEC;
-                            AnimujObrot(MacierzOb::OZ, kat);
+                            AnimujObrot(MacierzOb::OZ, kat, kp);
                             break;
 
                         default:
@@ -111,18 +117,17 @@ void Dron::Menu()
     }
 }
 
-bool Dron::CzyKolizja(std::shared_ptr<DronInterface>)
+bool Dron::CzyKolizja(DronInterface*)
 {
-    for(auto elem : kolekcja_przeskod)
+    /*for(auto elem : kolekcja_przeskod)
         if(elem->CzyKolizja(D))
             return true;
 
-     return false;
+     return false;*/
 }
 
-Dron::Dron(std::shared_ptr<drawNS::Draw3DAPI> api,const std::vector<std::shared_ptr<Przeszkoda_interface>> &kp,const Wektor3D & sr)
+Dron::Dron(std::shared_ptr<drawNS::Draw3DAPI> api, const Wektor3D & sr)
 {
-    kolekcja_przeskod=kp;
     InicjalizujDrona(api,sr);
 }
 

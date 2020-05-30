@@ -11,13 +11,23 @@
  */
 class PrzeszkodaProst : public Przeszkoda_interface, public Prostopadloscian {
 public:
-    PrzeszkodaProst(std::shared_ptr<drawNS::Draw3DAPI> api, std::vector<std::shared_ptr<Przeszkoda_interface>> kp,const Wektor3D & sr);
+    /*!
+     * \brief konstruktor bezparametryczny usunięty aby korzystać z parametrycznego
+     */
+    PrzeszkodaProst()=delete ;
+    /*!
+    * \brief konstruktor parametryczny
+    * \param api - api sceny
+    * \param sr - srodek przeszkody
+     * \param os - os do której przeszkoda jest prostopadła
+    */
+    PrzeszkodaProst(std::shared_ptr<drawNS::Draw3DAPI> api, const Wektor3D & sr,const enum MacierzOb::OsObrotu os);
     /*!
       * \brief Sprawdzenie czy doszło do kolizji
       * \param wskaznik na interfejs drona
       * \return true jesli kolizja, przeciwnym przypadku false
       */
-    bool CzyKolizja(std::shared_ptr<DronInterface>);
+    bool CzyKolizja(DronInterface* D);
 };
 
 

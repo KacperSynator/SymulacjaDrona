@@ -10,21 +10,10 @@
 class DronInterface{
 protected:
     /*!
-     * Wirnik prawy drona (\file Wirnik.hh )
+     * \brief Utworzenie i narysowanie drona
+     * \param api - wskaźnik sceny
      */
-    Wirnik wirnikP;
-    /*!
-     * Pozycja wirnika prawego wzgledem srodka drona
-     */
-    Wektor3D pozWP;
-    /*!
-     * Wirnik lewy drona (\file Wirnik.hh )
-     */
-    Wirnik wirnikL;
-    /*!
-     * Pozycja wirnika lewego wzgledem srodka drona
-    */
-    Wektor3D pozWL;
+    virtual void InicjalizujDrona (std::shared_ptr<drawNS::Draw3DAPI> api,const Wektor3D & sr)=0;
 public:
     /*!
      * \brief Animuje ruch drona
@@ -32,13 +21,13 @@ public:
      * \param odleglosc - odleglosc plyniecia drona
      * Uwaga: Kier jest mnożony przez przez odległość dlatego najlepiej podać wekor jednostkowy
      */
-    virtual void AnimujRuch(const Wektor3D & Kier,const double & odleglosc) =0;
+    void AnimujRuch(const Wektor3D & Kier,const double & odleglosc);
     /*!
      * \brief Animuje obrot drona
      * \param os - os obrotu (OsObrotu patrz \file MacierzKw.hh )
      * \param kat - kat w stopniach o jaki ma sie obrocic dron
      */
-    virtual void AnimujObrot(const enum MacierzOb::OsObrotu os, double kat) =0;
+    void AnimujObrot(const enum MacierzOb::OsObrotu os, double kat);
     /*!
      * \brief Animuje ruch drona pod danym katem
      * \param Kier - wektor kierunku (najlepiej jednostkowy)
@@ -46,18 +35,29 @@ public:
      * \param odleglosc - Kier jest mnożony przez przez odległość dlatego najlepiej podać wekor jednostkowy
      * Uwaga: Kier jest mnożony przez przez odległość dlatego najlepiej podać wekor jednostkowy
      */
-    virtual void RuchZeWzoszeniem(const Wektor3D & Kier ,const double & kat,const double & odleglosc)=0;
-    /*!
-     * \brief Utworzenie i narysowanie drona
-     * \param api - wskaźnik sceny
-     */
-    virtual void InicjalizujDrona (std::shared_ptr<drawNS::Draw3DAPI> api,const Wektor3D & sr)=0;
+    void RuchZeWzoszeniem(const Wektor3D & Kier ,const double & kat,const double & odleglosc);
 
     /*!
      * \brief Zwaraca aktualna pozycje dorna
      * \return Wektor pozycji
      */
     virtual Wektor3D ZwrocPozycje() = 0;
+    /*!
+     * \brief Zwraca aktualna orientacje drona
+     * \return Macierz orientacji
+     */
+    virtual MacierzOb ZwrocOrientacje() = 0;
+    /*!
+     * \brief Zwraca dlugość połowy przekątnej drona
+     * \return dlugosc przekatnej
+     */
+    virtual  double ZwrocDlugosc() = 0;
+    /*!
+     * \brief zwraca wektor lokalny wierzcholka i-1
+     * \param i - index wierzchołka +1 (dodatnie Pod1, ujemne Pod2)
+     * \return wierzcholek lokalny
+     */
+    virtual Wektor3D ZwrocWierzcholek(int i)=0;
 };
 
 #endif

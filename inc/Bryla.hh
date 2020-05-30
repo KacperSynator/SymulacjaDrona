@@ -48,6 +48,8 @@ public:
     */
     virtual bool Rysuj() override = 0;
 
+    virtual std::vector<Wektor3D> WyliczGlobalne(std::vector<Wektor3D> &in)=0;
+
 
 };
 

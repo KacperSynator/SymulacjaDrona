@@ -39,6 +39,9 @@ public:
     * Uwaga: nie dziala jesli nie wywolano wczesniej metody Inicjalizuj
     */
     bool Rysuj() override ;
+
+    std::vector<Wektor3D> WyliczGlobalne(std::vector<Wektor3D> &in) override ;
+
 };
 
 

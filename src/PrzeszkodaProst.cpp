@@ -1,21 +1,72 @@
 #include "../inc/PrzeszkodaProst.hh"
 
-bool PrzeszkodaProst::CzyKolizja(std::shared_ptr<DronInterface> D)
+bool PrzeszkodaProst::CzyKolizja(DronInterface * D)
 {
-    Wektor3D WP;
-    WP=srodek-D->ZwrocPozycje();
-    cout<<"DZIALA\n";
-    if(WP.dlugosc()<=4)
+    std::vector<Wektor3D> WP1=Pod1;
+    std::vector<Wektor3D> WP2=Pod2;
+
+    for(long unsigned int i=0;i<Pod1.size();i++)
+        WP1[i]=srodek+Pod1[i]+D->ZwrocWierzcholek(i+1);
+
+    for(long unsigned int i=0;i<Pod2.size();i++)
+        WP2[i]=srodek+Pod2[i]+D->ZwrocWierzcholek(-i-1);
+
+   /*
+    std::cout << D->ZwrocPozycje()<<"\n";
+    std::cout << std::max(WP1[0][0],WP2[2][0])<<"\n";
+    std::cout << std::min(WP1[0][0],WP2[2][0])<<"\n";
+
+    std::cout << std::max(WP1[1][1],WP2[3][1])  <<"\n";
+    std::cout << std::min(WP1[1][1],WP2[3][1]) <<"\n";
+
+    std::cout << std::max(WP1[0][2],WP2[2][2]) <<"\n";
+    std::cout << std::min(WP1[0][2],WP2[2][2]) <<"\n";*/
+
+    if(D->ZwrocPozycje()[0]<=std::max(WP1[0][0],WP2[2][0]) && D->ZwrocPozycje()[0]>=std::min(WP1[0][0],WP2[2][0]) && //prawo lewo
+       D->ZwrocPozycje()[1]<=std::max(WP1[1][1],WP2[3][1]) && D->ZwrocPozycje()[1]>=std::min(WP1[1][1],WP2[3][1]) && //przod tyl
+       D->ZwrocPozycje()[2]<=std::max(WP1[0][2],WP2[2][2]) && D->ZwrocPozycje()[2]>=std::min(WP1[0][2],WP2[2][2]))  //gora dol
+    {
+        std::cout << "KOLZIJA\n";
+       /* std::cout << D->ZwrocPozycje()<<"\n";
+        std::cout << WP1[0][0]<<"\n";
+        std::cout << WP1[1][0] <<"\n";
+
+        std::cout << WP1[1][1] <<"\n";
+        std::cout << WP1[2][1] <<"\n";
+
+        std::cout << WP1[0][2] <<"\n";
+        std::cout << WP2[0][2] <<"\n";*/
         return true;
+    }
 
     return false;
 }
 
-PrzeszkodaProst::PrzeszkodaProst(std::shared_ptr<drawNS::Draw3DAPI> api,std::vector<std::shared_ptr<Przeszkoda_interface>> kp,const Wektor3D & sr)
+PrzeszkodaProst::PrzeszkodaProst(std::shared_ptr<drawNS::Draw3DAPI> api, const Wektor3D & sr,enum MacierzOb::OsObrotu os)
 {
-    kp.push_back((std::shared_ptr<Przeszkoda_interface>) this);
-    kolekcja_przeskod=kp;
-    //utworzone++;
-   // istniejace++;
+
     Inicjalizuj(api,sr);
+    switch (os)
+    {
+        case MacierzOb::OX:{
+            Pod1 = {Wektor3D(0.5, 2, 1.5), Wektor3D(-0.5, 2, 1.5), Wektor3D(-0.5, -2, 1.5),Wektor3D(0.5, -2, 1.5)};
+            Pod2 = {Wektor3D(0.5, 2, -1.5), Wektor3D(-0.5, 2, -1.5), Wektor3D(-0.5, -2, -1.5),Wektor3D(0.5, -2, -1.5)};
+            break;
+        }
+
+        case MacierzOb::OY:{
+            Pod1 = {Wektor3D(1.5, 0.5, 2), Wektor3D(-1.5, 0.5, 2), Wektor3D(-1.5, -0.5, 2),Wektor3D(1.5, -0.5, 2)};
+            Pod2 = {Wektor3D(1.5, 0.5, -2), Wektor3D(-1.5, 0.5, -2), Wektor3D(-1.5, -0.5, -2),Wektor3D(1.5, -0.5, -2)};
+            break;
+        }
+
+        case MacierzOb::OZ: {
+            Pod1 = {Wektor3D(1.5,2,0.5),Wektor3D(-1.5,2,0.5),Wektor3D(-1.5,-2,0.5),Wektor3D(1.5,-2,0.5)};
+            Pod2 = {Wektor3D(1.5,2,-0.5),Wektor3D(-1.5,2,-0.5),Wektor3D(-1.5,-2,-0.5),Wektor3D(1.5,-2,-0.5)};
+            break;
+        }
+    }
+    Zmarz();
+    Rysuj();
+    apiSceny->change_shape_color(apii,"black");
 }

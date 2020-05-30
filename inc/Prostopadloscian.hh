@@ -18,16 +18,6 @@ protected:
     */
     std::vector<Wektor3D> Pod2;
 
-    /*!
-    * \brief Ustawienie podstawy pierwszej
-    * \param vekP - vector wspolrzednych wierzcholkow
-    */
-    void Set_Pod1(const std::vector<Wektor3D> & vekP) {Pod1=vekP;}
-    /*!
-    * \brief Ustawienie podstawy drugiej
-    * \param vekP - vector wspolrzednych wierzcholkow
-    */
-    void Set_Pod2(const std::vector<Wektor3D> & vekP) {Pod2=vekP;}
 public:
 
     /*!
@@ -42,6 +32,8 @@ public:
      * Uwaga: nie dziala jesli nie wywolano wczesniej metody Inicjalizuj
      */
     bool Rysuj() override ;
+
+    std::vector<Wektor3D> WyliczGlobalne(std::vector<Wektor3D> &in) override;
 
 
 };

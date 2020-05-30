@@ -30,15 +30,23 @@ int main()
     std::shared_ptr<drawNS::Draw3DAPI> api(new drawNS::APIGnuPlot3D(-10,10,-10,10,-10,10,-1));
     std::vector<std::shared_ptr<Przeszkoda_interface>> Kolekcja_Przeskod;
 
-    Dno dno;
-    PoziomMorza pm;
-    PrzeszkodaProst P1(api,Kolekcja_Przeskod,Wektor3D(0,6,0));
-    PrzeszkodaProst P2(api,Kolekcja_Przeskod, Wektor3D(3,6,4));
-    Dron D(api,Kolekcja_Przeskod,Wektor3D(0,0,0));
+    Dno dno(api,Wektor3D(0,0,-9));
+    PoziomMorza pm(api,Wektor3D(0,0,9));
+      std::shared_ptr<PrzeszkodaProst> P1;
+      P1= static_cast<std::shared_ptr<PrzeszkodaProst>>(new PrzeszkodaProst(api, Wektor3D(0, 6, 0), MacierzOb::OY));
+    Kolekcja_Przeskod.push_back(P1);
 
-    dno.Inicjalizuj(api,Wektor3D(0,0,-9));
-    pm.Inicjalizuj(api,Wektor3D(0,0,9));
-    D.Menu();
+    std::shared_ptr<PrzeszkodaProst> P2;
+    P2= static_cast<std::shared_ptr<PrzeszkodaProst>>(new PrzeszkodaProst(api,Wektor3D(4,2,4),MacierzOb::OX));
+    Kolekcja_Przeskod.push_back(P2);
+
+    std::shared_ptr<PrzeszkodaProst> P3;
+    P3= static_cast<std::shared_ptr<PrzeszkodaProst>>(new PrzeszkodaProst(api,Wektor3D(-3,-2,-3),MacierzOb::OZ));
+    Kolekcja_Przeskod.push_back(P3);
+
+    Dron D(api,Wektor3D(0,0,0));
+
+    D.Menu(Kolekcja_Przeskod);
 
 }
 

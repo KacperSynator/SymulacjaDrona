@@ -29,3 +29,5 @@ void Bryla::Obrot(const MacierzOb::OsObrotu os, double kat)
             break;
     }
 }
+
+
