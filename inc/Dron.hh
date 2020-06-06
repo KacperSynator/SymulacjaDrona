@@ -1,6 +1,7 @@
 #ifndef SYMULACJADRONA_DRON_HH
 #define SYMULACJADRONA_DRON_HH
 
+#include "string"
 #include "Prostopadloscian.hh"
 #include "Dron_interface.hh"
 #include "Przeszkoda_interface.hh"
@@ -31,9 +32,14 @@ protected:
     */
     Wektor3D pozWL;
     /*!
+     * Kolor drona
+     */
+    std::string kolor;
+    /*!
     * \brief Utworzenie i narysowanie drona
     * \param api - wskaźnik sceny
     */
+
     void InicjalizujDrona (std::shared_ptr<drawNS::Draw3DAPI> api,const Wektor3D & sr) override ;
 public:
     /*!
@@ -45,15 +51,15 @@ public:
     * \param api - api sceny
     * \param sr - srodek drona
     */
-    Dron(std::shared_ptr<drawNS::Draw3DAPI> api, const Wektor3D & sr);
+    Dron(std::shared_ptr<drawNS::Draw3DAPI> api, const Wektor3D & sr,const std::string k );
     /*!
     * \brief Animuje ruch drona
+    * Uwaga: Kier jest mnożony przez przez odległość dlatego najlepiej podać wekor jednostkowy
     * \param Kier - wektor kierunku (najlepiej jednostkowy)
     * \param odleglosc - odleglosc plyniecia drona
-     * \param kp - kolekcja przeszkod
-    * Uwaga: Kier jest mnożony przez przez odległość dlatego najlepiej podać wekor jednostkowy
+    * \param kp - kolekcja przeszkod
     */
-    bool AnimujRuch(const Wektor3D & kierunek,const double & odleglosc, std::vector<std::shared_ptr<Przeszkoda_interface>> &kp) ;
+    bool AnimujRuch(const Wektor3D & kierunek,const double & odleglosc, std::vector<std::shared_ptr<Przeszkoda_interface>> &kp) override ;
     /*!
      * \brief Animuje obrot drona
      * \param os - os obrotu (OsObrotu patrz \file MacierzKw.hh )
@@ -61,24 +67,25 @@ public:
      * \param kp - kolekcja przeszkod
      * \return prawda - kolizja, fałsz - bez kolizji
      */
-    bool AnimujObrot(const enum MacierzOb::OsObrotu os, double kat, std::vector<std::shared_ptr<Przeszkoda_interface>> &kp) ;
+    bool AnimujObrot(const enum MacierzOb::OsObrotu os, double kat, std::vector<std::shared_ptr<Przeszkoda_interface>> &kp) override ;
     /*!
     * \brief Animuje ruch drona pod danym katem
+    * Uwaga: Kier jest mnożony przez przez odległość dlatego najlepiej podać wekor jednostkowy
     * \param Kier - wektor kierunku (najlepiej jednostkowy)
     * \param kat - kat w stopniach o jaki ma sie obrocic dron
     * \param odleglosc - odleglosc plyniecia drona
      * \param kp - kolekcja przeszkod
      *\return prawda - kolizja, fałsz - bez kolizji
-    * Uwaga: Kier jest mnożony przez przez odległość dlatego najlepiej podać wekor jednostkowy
+    *
     */
-    void RuchZeWzoszeniem(const Wektor3D & Kier ,const double & kat,const double & odleglosc, std::vector<std::shared_ptr<Przeszkoda_interface>> &kp) ;
+    void RuchZeWzoszeniem(const Wektor3D & Kier ,const double & kat,const double & odleglosc, std::vector<std::shared_ptr<Przeszkoda_interface>> &kp) override ;
 
     /*!
      * \brief Menu sterowania dronem
-     * \param kp - kolekcja przeszkod
      * Daję możliwość obrotu drona i ruchu pod zadanym katem
+     * \param kp - kolekcja przeszkod
      */
-    void Menu(std::vector<std::shared_ptr<Przeszkoda_interface>> &kp) ;
+    bool Menu(std::vector<std::shared_ptr<Przeszkoda_interface>> &kp) override ;
     /*!
     * \brief Sprawdzenie czy doszło do kolizji
     * \param wskaznik na interfejs drona

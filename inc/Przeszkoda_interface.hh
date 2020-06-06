@@ -5,13 +5,13 @@
 #include <vector>
 #include <memory>
 
+class DronInterface;
+
 /*!
  * \brief Implementacja abstrakcujnej klasy przeszkoda
  */
 class Przeszkoda_interface {
-protected:
-static uint utworzone;
-static uint istniejace;
+
 public:
     /*!
      * \brief Sprawdzenie czy doszło do kolizji
@@ -21,6 +21,7 @@ public:
     virtual bool CzyKolizja(DronInterface*)=0;
 
 };
+
 
 
 #endif

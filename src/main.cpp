@@ -29,24 +29,33 @@ int main()
 
     std::shared_ptr<drawNS::Draw3DAPI> api(new drawNS::APIGnuPlot3D(-10,10,-10,10,-10,10,-1));
     std::vector<std::shared_ptr<Przeszkoda_interface>> Kolekcja_Przeskod;
+    std::vector<std::shared_ptr<Dron>> Kolekcja_Dronow;
 
-    Dno dno(api,Wektor3D(0,0,-9));
-    PoziomMorza pm(api,Wektor3D(0,0,9));
-      std::shared_ptr<PrzeszkodaProst> P1;
-      P1= static_cast<std::shared_ptr<PrzeszkodaProst>>(new PrzeszkodaProst(api, Wektor3D(0, 6, 0), MacierzOb::OY));
-    Kolekcja_Przeskod.push_back(P1);
+    Kolekcja_Dronow.push_back(static_cast<std::shared_ptr<Dron>>(new Dron(api,Wektor3D(0,0,0),"purple")));
+    Kolekcja_Dronow.push_back(static_cast<std::shared_ptr<Dron>>(new Dron(api,Wektor3D(7,-5,4),"red")));
+    Kolekcja_Dronow.push_back(static_cast<std::shared_ptr<Dron>>(new Dron(api,Wektor3D(-7,5,-2),"green")));
 
-    std::shared_ptr<PrzeszkodaProst> P2;
-    P2= static_cast<std::shared_ptr<PrzeszkodaProst>>(new PrzeszkodaProst(api,Wektor3D(4,2,4),MacierzOb::OX));
-    Kolekcja_Przeskod.push_back(P2);
 
-    std::shared_ptr<PrzeszkodaProst> P3;
-    P3= static_cast<std::shared_ptr<PrzeszkodaProst>>(new PrzeszkodaProst(api,Wektor3D(-3,-2,-3),MacierzOb::OZ));
-    Kolekcja_Przeskod.push_back(P3);
+for(const auto & elem : Kolekcja_Dronow)
+        Kolekcja_Przeskod.push_back(elem);
 
-    Dron D(api,Wektor3D(0,0,0));
+    Kolekcja_Przeskod.push_back(static_cast<std::shared_ptr<Przeszkoda_interface>>(new Dno(api,Wektor3D(0,0,-9))));
+    Kolekcja_Przeskod.push_back(static_cast<std::shared_ptr<Przeszkoda_interface>>(new PoziomMorza(api,Wektor3D(0,0,9))));
 
-    D.Menu(Kolekcja_Przeskod);
+    Kolekcja_Przeskod.push_back(static_cast<std::shared_ptr<Przeszkoda_interface>>(new PrzeszkodaProst(api, Wektor3D(0, 6, 0), MacierzOb::OY)));
+    Kolekcja_Przeskod.push_back(static_cast<std::shared_ptr<Przeszkoda_interface>>(new PrzeszkodaProst(api,Wektor3D(6,2,4),MacierzOb::OX)));
+    Kolekcja_Przeskod.push_back(static_cast<std::shared_ptr<Przeszkoda_interface>>(new PrzeszkodaProst(api,Wektor3D(-3,-2,-4),MacierzOb::OZ)));
+
+    api->redraw();
+
+    for(int i=0;i<Kolekcja_Dronow.size();++i)
+    {
+        if(Kolekcja_Dronow[i]->Menu(Kolekcja_Przeskod))
+            break;
+
+        if(i==(Kolekcja_Dronow.size()-1))
+            i=-1;
+    }
 
 }
 

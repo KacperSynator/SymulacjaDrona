@@ -2,6 +2,9 @@
 #define SYMULACJADRONA_DRON_INTERFACE_HH
 
 #include "Wirnik.hh"
+#include "Przeszkoda_interface.hh"
+
+class Przeszkoda_interface;
 
 /*!
  * \brief Implementacja abstrakcyjnej klasy DronInterface
@@ -17,25 +20,35 @@ protected:
 public:
     /*!
      * \brief Animuje ruch drona
+     * Uwaga: Kier jest mnożony przez przez odległość dlatego najlepiej podać wekor jednostkowy
      * \param Kier - wektor kierunku (najlepiej jednostkowy)
      * \param odleglosc - odleglosc plyniecia drona
-     * Uwaga: Kier jest mnożony przez przez odległość dlatego najlepiej podać wekor jednostkowy
+     * \param kp - kolekcja przeszkod
      */
-    void AnimujRuch(const Wektor3D & Kier,const double & odleglosc);
+    virtual bool AnimujRuch(const Wektor3D & Kier,const double & odleglosc, std::vector<std::shared_ptr<Przeszkoda_interface>> &kp)=0;
     /*!
      * \brief Animuje obrot drona
      * \param os - os obrotu (OsObrotu patrz \file MacierzKw.hh )
      * \param kat - kat w stopniach o jaki ma sie obrocic dron
+     * \param kp - kolekcja przeszkod
      */
-    void AnimujObrot(const enum MacierzOb::OsObrotu os, double kat);
+    virtual bool AnimujObrot(const enum MacierzOb::OsObrotu os, double kat, std::vector<std::shared_ptr<Przeszkoda_interface>> &kp)=0;
     /*!
      * \brief Animuje ruch drona pod danym katem
+     * Uwaga: Kier jest mnożony przez przez odległość dlatego najlepiej podać wekor jednostkowy
      * \param Kier - wektor kierunku (najlepiej jednostkowy)
      * \param kat - odleglosc plyniecia drona
      * \param odleglosc - Kier jest mnożony przez przez odległość dlatego najlepiej podać wekor jednostkowy
-     * Uwaga: Kier jest mnożony przez przez odległość dlatego najlepiej podać wekor jednostkowy
+     * \param kp - kolekcja przeszkod
      */
-    void RuchZeWzoszeniem(const Wektor3D & Kier ,const double & kat,const double & odleglosc);
+    virtual void RuchZeWzoszeniem(const Wektor3D & Kier ,const double & kat,const double & odleglosc, std::vector<std::shared_ptr<Przeszkoda_interface>> &kp)=0;
+
+    /*!
+     * \brief Menu sterowania dronem
+     * Daję możliwość obrotu drona i ruchu pod zadanym katem
+     * \param kp - kolekcja przeszkod
+     */
+    virtual bool Menu(std::vector<std::shared_ptr<Przeszkoda_interface>> &kp) = 0;
 
     /*!
      * \brief Zwaraca aktualna pozycje dorna

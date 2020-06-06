@@ -27,3 +27,15 @@ PoziomMorza::PoziomMorza(std::shared_ptr<drawNS::Draw3DAPI> api, const Wektor3D 
 {
     Inicjalizuj(api,sr);
 }
+
+bool PoziomMorza::CzyKolizja(DronInterface *D)
+{
+    double promien=D->ZwrocDlugosc()/3;
+
+    if(D->ZwrocPozycje()[2]>=(9.5-promien))
+    {
+        std::cout<<"KOLIZJA Z TAFLA WODY\n";
+        return true;
+    }
+    return false;
+}

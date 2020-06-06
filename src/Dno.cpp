@@ -26,3 +26,15 @@ Dno::Dno(std::shared_ptr<drawNS::Draw3DAPI> api, const Wektor3D &sr)
 {
     Inicjalizuj(api,sr);
 }
+
+bool Dno::CzyKolizja(DronInterface *D)
+{
+    double promien=D->ZwrocDlugosc();
+
+    if(D->ZwrocPozycje()[2]<=(-9+promien))
+    {
+        std::cout<<"KOLIZJA Z DNEM\n";
+        return true;
+    }
+    return false;
+}

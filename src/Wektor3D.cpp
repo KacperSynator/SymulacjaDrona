@@ -1,5 +1,12 @@
 #include "../inc/Wektor3D.hh"
 
+
+uint Wektor3D::utworzone = 0;
+uint Wektor3D::istniejace = 0;
+
+uint Wektor3D::ZwrocIstniejace() {return istniejace;}
+uint Wektor3D::ZwrocUtworzone() {return utworzone;}
+
 drawNS::Point3D Wektor3D::Wektor2Point() const
 {
     return drawNS::Point3D(tab[0],tab[1],tab[2]);
